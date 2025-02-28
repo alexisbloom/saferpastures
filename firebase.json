@@ -14,7 +14,7 @@
     ]
   },
   "firestore": {
-    "rules": "firestore.rules"
+    "rules": "firestore/firestore.rules"
   },
   "functions": {
     "source": "functions"
