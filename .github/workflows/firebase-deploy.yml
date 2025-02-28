@@ -3,7 +3,7 @@ name: Deploy to Firebase
 on:
   push:
     branches:
-      - main  # Deploy only when pushing to the main branch
+      - main  # Deploy only when pushing to main branch
 
 jobs:
   deploy:
@@ -23,6 +23,11 @@ jobs:
       - name: Authenticate with Firebase
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase-key.json
 
-      - name: Deploy to Firebase
-        run: |
-          firebase deploy --token "$(cat firebase-key.json)" --non-interactive
+      - name: Deploy Firestore Rules
+        run: firebase deploy --only firestore:rules --token "$(cat firebase-key.json)"
+
+      - name: Deploy Cloud Functions
+        run: firebase deploy --only functions --token "$(cat firebase-key.json)"
+
+      - name: Deploy Firebase Hosting
+        run: firebase deploy --only hosting --token "$(cat firebase-key.json)"
